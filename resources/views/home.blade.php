@@ -3,13 +3,31 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <input type="text" name="daterange" value="{{$start_date->format('m/d/Y')}} - {{$end_date->format('m/d/Y')}}" />
-        </div>
-        <div class="col-md-6">
-            <button type="button" class="btn btn-primary" id="send-report">Send Report</button>
+        <div class="col-sm-12">
+            <div class="flash-message"></div>
         </div>
     </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Send Report</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Please select Date range to Send status report to {{ Session::get('user')['email-address'] }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="text" name="daterange" class="form-control" value="{{$start_date->format('m/d/Y')}} - {{$end_date->format('m/d/Y')}}" />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-info form-control" id="send-report">Send Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="alert alert-primary" role="alert">
@@ -90,6 +108,7 @@
         // Send Report
         $("#send-report").click(function() {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $('#loading').show();
             $.ajax({
                 /* the route pointing to the post function */
                 url: '/sendReport',
@@ -100,11 +119,16 @@
                     start_date: $('input[name="daterange"]').data('daterangepicker').startDate.format('YYYYMMDD'),
                     end_date: $('input[name="daterange"]').data('daterangepicker').endDate.format('YYYYMMDD')
                 },
-                dataType: 'JSON',
+                dataType: 'html',
                 /* remind that 'data' is the response of the AjaxController */
                 success: function(data) {
-                    $(".writeinfo").append(data.msg);
-                }
+                    $('div.flash-message').html(data);
+                    $('#loading').hide();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("Problem in sending Email!");
+                    $('#loading').hide();
+                },
             });
         });
 

@@ -7,6 +7,8 @@ use \DateTime;
 use App\Mail\SendReportEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Session;
+use View;
 
 class HomeController extends Controller
 {
@@ -75,7 +77,8 @@ class HomeController extends Controller
 
         Mail::to($user['email-address'])->send(new SendReportEmail($objDemo));
         Storage::disk('send_report')->delete($generateDocument);
-        return response()->json($response);
+        Session::flash('success', 'Report has been successfully sent to ' . $user['email-address']);
+        return View::make('partials/flash-messages');
     }
 
     public function getTeamWorkData(Request $request, DateTime $startDate, DateTime $endData = null)

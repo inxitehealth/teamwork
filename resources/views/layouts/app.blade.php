@@ -25,6 +25,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
@@ -48,7 +49,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto float-right">
                         <!-- Authentication Links -->
                         @if (!Session::has('user'))
                         <li class="nav-item">
@@ -57,7 +58,7 @@
                         @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Session::get('user')['first-name'] }} {{ Session::get('user')['last-name'] }}<span class="caret"></span>
+                                {{ Session::get('user')['first-name'] }} {{ Session::get('user')['last-name'] }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -80,6 +81,19 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <link href="{{ asset('css/loader.css') }}" rel="stylesheet" type="text/css">
+        <div id="loading" class='loader-container' style="display: none">
+            <div class='loader'>
+                <div class='loader--dot'></div>
+                <div class='loader--dot'></div>
+                <div class='loader--dot'></div>
+                <div class='loader--dot'></div>
+                <div class='loader--dot'></div>
+                <div class='loader--dot'></div>
+                <div class='loader--text'></div>
+            </div>
+        </div>
     </div>
 </body>
 
