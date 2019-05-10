@@ -21,7 +21,7 @@
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <h4 class="text-center">Please use Team work Login details</h4>
+                                <h4 class="text-center">Please use InXite - Team Work Login details</h4>
                             </div>
                         </div>
 

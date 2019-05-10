@@ -1,7 +1,7 @@
 <html>
 
 <body>
-    <h1>Team Work</h1>
+    <h1>InXite - Team Work</h1>
 
     @yield('content')
 </body>

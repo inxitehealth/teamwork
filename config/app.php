@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Team Work'),
+    'name' => env('APP_NAME', 'InXite - Team Work'),
 
     /*
     |--------------------------------------------------------------------------
