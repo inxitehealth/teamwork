@@ -36,9 +36,14 @@ class SendReportEmail extends Mailable
      */
     public function build()
     {
-        return $this->from($this->data->email)
+        $email = $this->from($this->data->email)
             ->subject($this->data->subject)
-            ->attach(Storage::disk('send_report')->path($this->data->attachment))
             ->view('mails.sendreport');
+
+        // $attachments is an array with file paths of attachments
+        foreach ($this->data->attachment as $filePath) {
+            $email->attach(Storage::disk('send_report')->path($filePath));
+        }
+        return $email;
     }
 }
