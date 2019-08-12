@@ -19,6 +19,14 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
+                    <select class="form-control" name="users" id="users" multiple>
+                        <option value="all">All</option>
+                        @foreach( Session::get('allUsers') as $user)
+                        <option value="{{$user['id']}}" {{ ($user['id'] == Session::get('user')['id'] ? "selected":"") }}>{{$user['full-name']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3">
                     <input type="text" name="daterange" class="form-control" value="{{$start_date->format('m/d/Y')}} - {{$end_date->format('m/d/Y')}}" />
                 </div>
                 <div class="col-md-2">
@@ -117,7 +125,8 @@
                 data: {
                     _token: CSRF_TOKEN,
                     start_date: $('input[name="daterange"]').data('daterangepicker').startDate.format('YYYYMMDD'),
-                    end_date: $('input[name="daterange"]').data('daterangepicker').endDate.format('YYYYMMDD')
+                    end_date: $('input[name="daterange"]').data('daterangepicker').endDate.format('YYYYMMDD'),
+                    users: $('#users').val()
                 },
                 dataType: 'html',
                 /* remind that 'data' is the response of the AjaxController */
